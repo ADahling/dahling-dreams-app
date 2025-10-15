@@ -36,15 +36,46 @@ body {
 }
 
 .button {
-  @apply bg-primary text-white font-bold py-3 px-6 rounded-lg transition-transform transform hover:scale-105;
+  background-color: #6799c6;
+  color: white;
+  font-weight: bold;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  transition: transform 0.2s;
+}
+
+.button:hover {
+  transform: scale(1.05);
 }
 
 .button.secondary {
-  @apply bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white;
+  background-color: transparent;
+  border: 2px solid #6799c6;
+  color: #6799c6;
+}
+
+.button.secondary:hover {
+  background-color: #6799c6;
+  color: white;
 }
 
 .form-input {
-  @apply w-full bg-gray-900 border border-gray-700 rounded-lg py-3 px-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary;
+  width: 100%;
+  background-color: #1a1a1a;
+  border: 1px solid #374151;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  color: white;
+}
+
+.form-input::placeholder {
+  color: #6b7280;
+}
+
+.form-input:focus {
+  outline: none;
+  ring: 2px;
+  ring-color: #6799c6;
 }
 
 @keyframes shimmer {
