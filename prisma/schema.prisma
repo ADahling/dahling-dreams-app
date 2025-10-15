@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String          @id @default(cuid())
+  name          String?
+  email         String          @unique
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime        @default(now())
+
+  childProfiles ChildProfile[]
+  stories       Story[]
+  subscriptions Subscription[]
+}
+
+model ChildProfile {
+  id        String   @id @default(cuid())
+  userId    String
+  name      String
+  age       Int
+  interests String[]
+  avatarUrl String?
+  createdAt DateTime @default(now())
+
+  user             User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  stories          Story[]
+  voicePreferences VoicePreference[]
+}
+
+model Story {
+  id             String   @id @default(cuid())
+  userId         String
+  childProfileId String
+  title          String
+  theme          String
+  language       String
+  audioUrl       String?
+  isPremium      Boolean  @default(false)
+  createdAt      DateTime @default(now())
+
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  childProfile ChildProfile @relation(fields: [childProfileId], references: [id], onDelete: Cascade)
+  pages        StoryPage[]
+}
+
+model StoryPage {
+  id         String  @id @default(cuid())
+  storyId    String
+  pageNumber Int
+  text       String
+  imageUrl   String?
+  audioUrl   String?
+
+  story Story @relation(fields: [storyId], references: [id], onDelete: Cascade)
+
+  @@unique([storyId, pageNumber])
+}
+
+model VoicePreference {
+  id             String @id @default(cuid())
+  childProfileId String
+  voiceId        String
+  language       String
+
+  childProfile ChildProfile @relation(fields: [childProfileId], references: [id], onDelete: Cascade)
+}
+
+model Subscription {
+  id                   String    @id @default(cuid())
+  userId               String
+  stripeCustomerId     String    @unique
+  stripeSubscriptionId String    @unique
+  stripePriceId        String
+  status               String
+  currentPeriodEnd     DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

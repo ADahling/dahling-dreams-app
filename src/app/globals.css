@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: sans-serif;
+}
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 4, 4, 4;
+  --background-end-rgb: 4, 4, 4;
+  --primary-color: #6799c6;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.heading-gradient {
+  background: linear-gradient(90deg, #b7b3d0, #73a1cf);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.button {
+  @apply bg-primary text-white font-bold py-3 px-6 rounded-lg transition-transform transform hover:scale-105;
+}
+
+.button.secondary {
+  @apply bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white;
+}
+
+.form-input {
+  @apply w-full bg-gray-900 border border-gray-700 rounded-lg py-3 px-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) rotate(-10deg);
+  }
+  100% {
+    transform: translateX(100%) rotate(10deg);
+  }
+}
+
+.shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0) 100%);
+  animation: shimmer 4s infinite linear;
+}
+
+@keyframes shape-bob {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.shape-animation {
+  animation: shape-bob 5s infinite ease-in-out;
+}
