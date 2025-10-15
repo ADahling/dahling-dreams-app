@@ -58,7 +58,7 @@ export default function Home() {
               <p className="text-gray-400">Immersive storybook experiences with animated characters, interactive elements, and engaging narratives that respond to touch and sound for deeper engagement.</p>
             </div>
             <div className="bg-black/30 backdrop-blur-md p-6 rounded-lg border border-gray-800 hover:border-[#6799c6] transition-colors">
-              <h4 class="text-lg font-semibold mb-3">Cultural Connection</h4>
+              <h4 className="text-lg font-semibold mb-3">Cultural Connection</h4>
               <p className="text-gray-400">Children connect with diverse cultures through authentic stories rich with heritage, customs, and shared human experiences.</p>
             </div>
           </div>
